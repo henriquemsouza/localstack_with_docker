@@ -1,0 +1,25 @@
+service: node-sample
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    debug: true
+    stages:
+     - local
+     - dev
+    endpointFile: localstack_endpoints.json
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    EMAIL_SERVICE_API_KEY: KEYEXAMPLE1234
+
+functions:
+  createUser:
+    handler: handler.createUser
+    environment:
+      PASSWORD_ITERATIONS: 4096
+      PASSWORD_DERIVED_KEY_LENGTH: 256
