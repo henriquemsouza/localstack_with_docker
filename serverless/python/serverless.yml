@@ -9,17 +9,36 @@ provider:
 plugins:
   - serverless-localstack
   
-package:
-  individually: true
-  custom:
-    localstack:
-      debug: true
-      edgePort: 4566
-      autostart: false
-      stages: [local]
-      lambda:
-        mountCode: true
 
 functions:
   main:
     handler: lambda_function.lambda_handler
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+    - .pytest_cache/**
+    - tests/*
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+  localstack:
+    debug: true 
+    stages:
+      - local
+    host: http://localhost  
+    autostart: true  
+    endpoints:
+      S3: http://localhost:4566
+      DynamoDB: http://localhost:4566
+      CloudFormation: http://localhost:4566
+      Elasticsearch: http://localhost:4566
+      ES: http://localhost:4566
+      SNS: http://localhost:4566
+      SQS: http://localhost:4566
+      Lambda: http://localhost:4566
+      Kinesis: http://localhost:4566
+    lambda:
+      mountCode: True

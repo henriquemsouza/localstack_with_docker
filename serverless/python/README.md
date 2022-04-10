@@ -7,13 +7,15 @@ npm i -g serverless
 ```
 
 ```sh
-npm install --save-dev serverless-localstack
+pip install -r requirements.txt
+
 ```
 ## Initialize your project by running:
 
 ```sh
 serverless
 ```
+
 
 ## Test lambda with:
 ```sh
